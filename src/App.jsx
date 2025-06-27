@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 dark:text-text-dark text-text-light">
+    <div className="min-h-screen bg-white dark:bg-gray-900 ">
       <Router>
         <Routes>
           <Route path="/login" element={<Login />} />

@@ -35,8 +35,8 @@ export default function Topbar() {
   };
 
   return (
-    <div>
-      <div className="hidden min1000:flex flex-wrap sticky top-0 z-10 bg-white dark:bg-black items-center justify-between p-4 sm:p-6 md:p-8 text-base sm:text-lg font-medium dark:text-text-dark text-text-light shadow-bottom-only">
+    <div className="sticky top-0 z-10 bg-white dark:bg-black ">
+      <div className="hidden min1000:flex flex-wrap items-center justify-between p-4 sm:p-6 md:p-8 text-base sm:text-lg font-medium dark:text-text-dark text-text-light shadow-bottom-only">
         {/* Logo */}
         {/* <div className="font-rouge text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide">
         Tourism 
@@ -145,7 +145,7 @@ export default function Topbar() {
         </div>
       </div>
 
-      <div className="min1000:hidden  mt-4 shadow-bottom-only sticky top-0 z-10 bg-white dark:bg-black dark:text-text-dark text-text-light ">
+      <div className="min1000:hidden  mt-4 shadow-bottom-only  dark:text-text-dark text-text-light ">
         <div className="flex justify-between align-center items-center px-3 py-4">
            <Logo />
         <AlignJustify />

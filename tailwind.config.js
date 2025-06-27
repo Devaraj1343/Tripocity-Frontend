@@ -19,6 +19,8 @@ export default {
       },
       fontFamily: {
         rouge: ["Rouge Script", "sans-serif"],
+        math: ["Libertinus Math", "serif"],
+        roboto: ["Roboto", "sans-serif"],
       },
       screens: {
         min1000: "1000px", // ✅ custom breakpoint
