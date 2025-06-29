@@ -8,7 +8,7 @@ import { WeddingCategories } from "../common/packageConstants/wedding";
 import { IndiaCategories } from "../common/packageConstants/india";
 import Logo from "./logo";
 import Login from "../Pages/Login";
-import Signup from "../Pages/signup/Signup";
+import Signup from "../Pages/signup/LoginPage";
 import { AlignJustify } from 'lucide-react';
 
 export default function Topbar() {
