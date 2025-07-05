@@ -3,6 +3,7 @@ import MainLayout from "./MainLayout";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Package from "./Pages/package";
 
 function App() {
   return (
@@ -12,9 +13,10 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route element={<MainLayout />}>
             <Route path="/" element={<Home />} />
+            <Route path="/packages/:region/:place" element={<Package />} />
           </Route>
         </Routes>
-      </Router> 
+      </Router>
       {/* <Footer /> */}
     </div>
   );

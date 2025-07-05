@@ -23,10 +23,10 @@ export default {
         roboto: ["Roboto", "sans-serif"],
       },
       screens: {
-        min1000: "1000px", // ✅ custom breakpoint
+        min1000: "1000px",
       },
       boxShadow: {
-        "bottom-only": "0 2px 4px rgba(0, 0, 0, 0.1)", // horizontal, vertical, blur, color
+        "bottom-only": "0 2px 4px rgba(0, 0, 0, 0.1)",
       },
     },
   },

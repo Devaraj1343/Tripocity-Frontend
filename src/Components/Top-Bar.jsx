@@ -10,6 +10,7 @@ import Logo from "./logo";
 import Login from "../Pages/Login";
 import Signup from "../Pages/signup/LoginPage";
 import { AlignJustify } from 'lucide-react';
+import Package from "../Pages/package";
 
 export default function Topbar() {
   const [hoveredItem, setHoveredItem] = useState(null);
@@ -30,6 +31,7 @@ export default function Topbar() {
   const handleNavigate = (region, place) => {
     const formatted = place.toLowerCase().replace(/\s+/g, "-");
     navigate(`/packages/${region}/${formatted}-tour-packages`);
+    // navigate(<Package region={region} place={formatted} />);
     setHoveredItem(null);
     setIsDropdownHovered(false);
   };
