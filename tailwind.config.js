@@ -6,12 +6,10 @@ export default {
     extend: {
       colors: {
         primary: "#7C3AED",
-
         text: {
           dark: "#ffffff",
-          light: " #1f2937",
+          light: "#1f2937",
         },
-
         bg: {
           dark: "#1f2937",
           light: "#ffffff",
@@ -21,6 +19,7 @@ export default {
         rouge: ["Rouge Script", "sans-serif"],
         math: ["Libertinus Math", "serif"],
         roboto: ["Roboto", "sans-serif"],
+        playfair: ["'Playfair Display'", "serif"],
       },
       screens: {
         min1000: "1000px",
@@ -28,8 +27,20 @@ export default {
       boxShadow: {
         "bottom-only": "0 2px 4px rgba(0, 0, 0, 0.1)",
       },
+      keyframes: {
+        slideDown: {
+          "0%": {
+            transform: "translateY(-100%)",
+          },
+          "100%": {
+            transform: "translateY(0)",
+          },
+        },
+      },
+      animation: {
+        slideDown: "slideDown 0.5s ease-out forwards",
+      },
     },
   },
   plugins: [],
 };
-

@@ -1,4 +1,3 @@
-import home from "../assets/home.jpg";
 import home1 from "../assets/Home-1.jpg";
 import Footer from "../Components/Footer";
 import indiaPackage from "../assets/Tajmahal.jpg";
@@ -8,13 +7,14 @@ import europePackage from "../assets/Europe.jpg";
 import groupPackage from "../assets/Group-Package.jpg";
 import TajmahalMobile from "../assets/Tajmahal-Mobile.jpg";
 import worldMap from "../assets/WorldMap.png";
-import { Phone } from "lucide-react";
-import { Mail } from "lucide-react";
+import { Phone, Mail, Facebook } from "lucide-react";
 import { useState } from "react";
 import ContactForm from "../Components/contactForm";
-import { Facebook } from "lucide-react";
+import SuggestionCards from "../Components/SuggestionCards";
+import CreatePackage from "../Components/CreatePackage";
 
 export default function Home() {
+  const [canCreaetePackage, setCanCreatePackage] = useState(false);
   const [images, setImages] = useState([
     { name: "India Packages", image: indiaPackage },
     { name: "International Packages", image: internationalPackage },
@@ -23,55 +23,66 @@ export default function Home() {
     { name: "Group Packages", image: groupPackage },
   ]);
   return (
-    <div className="flex flex-col gap-11">
-      <div className="lg:h-[calc(100vh-112px)]  sm:h-[60vh] ">
-        <img src={home1} alt="Fruit" className="w-full h-full object-cover" />
-      </div>
-
-      <div className="lg:h-[calc(100vh-112px)]  sm:h-[60vh]">
-        <div className="my-8 text-2xl font-bold w-[90%] mx-auto dark:text-text-dark">
-          Popular Packages
+    <>
+      <div className="flex flex-col gap-11">
+        <div className="lg:h-[calc(100vh-112px)]  sm:h-[60vh] ">
+          <img src={home1} alt="Fruit" className="w-full h-full object-cover" />
         </div>
-        <div className="w-[90%] mx-auto columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
-          {images.map((image, index) => (
-            <div
-              key={index}
-              className={`break-inside-avoid overflow-hidden rounded ${
-                index === 0
-                  ? "sm:h-auto h-[350px] w-full object-cover object-top relative transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg hover:opacity-90"
-                  : "relative transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg hover:opacity-90"
-              }`}
-            >
-              <div className="absolute inset-0 flex items-center justify-center z-2 flex-col gap-3">
-                <span className="text-white text-3xl font-semibold  px-4 py-2 rounded font-math">
-                  {image.name}
-                </span>
-                <button className="bg-primary text-white px-4 py-2 rounded hover:bg-black font-math text-xl">
-                  10 Tours
-                </button>
-              </div>
-              {index === 0 ? (
-                <picture>
-                  {/* Mobile version */}
-                  <source media="(max-width: 639px)" srcSet={TajmahalMobile} />
-                  {/* Default (desktop/tablet) */}
+
+        <div className="lg:h-[calc(100vh-112px)]  sm:h-[60vh]">
+          <div className="my-8 text-2xl font-bold w-[90%] mx-auto dark:text-text-dark">
+            Popular Packages
+          </div>
+          <div className="w-[90%] mx-auto columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+            {images.map((image, index) => (
+              <div
+                key={index}
+                className={`break-inside-avoid overflow-hidden rounded ${
+                  index === 0
+                    ? "sm:h-auto h-[350px] w-full object-cover object-top relative transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg hover:opacity-90"
+                    : "relative transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg hover:opacity-90"
+                }`}
+              >
+                <div className="absolute inset-0 flex items-center justify-center z-2 flex-col gap-3">
+                  <span className="text-white text-3xl font-semibold  px-4 py-2 rounded font-math">
+                    {image.name}
+                  </span>
+                  <button className="bg-primary text-white px-4 py-2 rounded hover:bg-black font-math text-xl">
+                    10 Tours
+                  </button>
+                </div>
+                {index === 0 ? (
+                  <picture>
+                    {/* Mobile version */}
+                    <source
+                      media="(max-width: 639px)"
+                      srcSet={TajmahalMobile}
+                    />
+                    {/* Default (desktop/tablet) */}
+                    <img
+                      src={image.image}
+                      alt="Responsive Image"
+                      className="w-full h-auto object-cover "
+                    />
+                  </picture>
+                ) : (
                   <img
                     src={image.image}
-                    alt="Responsive Image"
-                    className="w-full h-auto object-cover "
+                    alt={`Image ${index}`}
+                    className="w-full h-auto object-cover transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg hover:opacity-90"
                   />
-                </picture>
-              ) : (
-                <img
-                  src={image.image}
-                  alt={`Image ${index}`}
-                  className="w-full h-auto object-cover transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg hover:opacity-90"
-                />
-              )}
-            </div>
-          ))}
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
+
+      {/* Suggestion packges */}
+      <div className="w-[90%] my-5 mx-3 text-2xl font-bold dark:text-text-dark">
+        Explore More
+      </div>
+      <SuggestionCards />
 
       <div
         className="lg:h-[calc(100vh-112px)]  sm:h-[60vh] "
@@ -105,7 +116,18 @@ export default function Home() {
         </div>
       </div>
 
+      <button
+        className="flex fixed bottom-0 right-0 m-5 bg-primary p-3 rounded-lg text-white font-semibold hover:bg-black"
+        onClick={() => setCanCreatePackage(!canCreaetePackage)}
+      >
+        Create New Package
+      </button>
+      {/* Create new tour package by admin */}
+      {canCreaetePackage && (
+        <CreatePackage setCanCreaetePackage={setCanCreatePackage} />
+      )}
+
       <Footer />
-    </div>
+    </>
   );
 }
