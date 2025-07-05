@@ -1,0 +1,78 @@
+@keyframes flyLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes rotateFade {
+  0% {
+    opacity: 0;
+    transform: rotate(-90deg);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(0);
+  }
+}
+
+@keyframes slideBounce {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  80% {
+    transform: translateY(-10%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.animate-flyLeft {
+  animation: flyLeft 1s ease-out forwards;
+}
+
+.animate-fadeScale {
+  animation: fadeScale 1s ease-out forwards;
+}
+
+.animate-rotateFade {
+  animation: rotateFade 1s ease-out forwards;
+}
+
+.animate-slideBounce {
+  animation: slideBounce 1s ease-out forwards;
+}
+
+.animate-typing {
+  overflow: hidden;
+  border-right: 2px solid white;
+  white-space: nowrap;
+  animation: typing 2s steps(30, end) forwards;
+}
