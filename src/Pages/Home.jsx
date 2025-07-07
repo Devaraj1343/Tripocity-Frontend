@@ -14,6 +14,8 @@ import { useState, useEffect } from "react";
 import ContactForm from "../Components/contactForm";
 import world from '../assets/World-1.jpg'
 import "../App.css";
+import SuggestionCards from "../Components/SuggestionCards";
+import CreatePackage from "../Components/CreatePackage";
 
 export default function Home() {
   const [canCreaetePackage, setCanCreatePackage] = useState(false);
@@ -133,7 +135,9 @@ const tourismTexts = [
         </div>
       </div>
 
-      <button
+       <div>
+
+       <button
         className="flex fixed bottom-0 right-0 m-5 bg-primary p-3 rounded-lg text-white font-semibold hover:bg-black"
         onClick={() => setCanCreatePackage(!canCreaetePackage)}
       >
@@ -144,7 +148,13 @@ const tourismTexts = [
         <CreatePackage setCanCreaetePackage={setCanCreatePackage} />
       )}
 
+      </div>
+
+      <div>
+        <SuggestionCards/>
+      </div>
+
       <Footer />
-    </>
+    </div>
   );
 }

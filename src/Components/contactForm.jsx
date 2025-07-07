@@ -104,13 +104,11 @@ export default function ContactForm() {
             placeholder="Name*"
             name="name"
             value={formData.name}
-            onChange={handleChange}
             required
             className={`px-4 py-2 border ${
               formErrors.name ? "border-red-500" : "border-gray-300"
             } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full`}
             onChange={handleChangeInput}
-            name="name"
           />
           {formErrors.name && (
             <span className="text-red-500 text-sm">{formErrors.name}</span>
@@ -123,13 +121,11 @@ export default function ContactForm() {
             name="email"
             placeholder="Email*"
             value={formData.email}
-            onChange={handleChange}
             required
             className={`px-4 py-2 border ${
               formErrors.email ? "border-red-500" : "border-gray-300"
             } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full`}
             onChange={handleChangeInput}
-            name="email"
           />
           {formErrors.email && (
             <span className="text-red-500 text-sm">{formErrors.email}</span>
@@ -142,13 +138,11 @@ export default function ContactForm() {
             name="city"
             placeholder="City of Residence*"
             value={formData.city}
-            onChange={handleChange}
             required
             className={`px-4 py-2 border ${
               formErrors.city ? "border-red-500" : "border-gray-300"
             } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full`}
             onChange={handleChangeInput}
-            name="city"
           />
           {formErrors.city && (
             <span className="text-red-500 text-sm">{formErrors.city}</span>
