@@ -102,7 +102,9 @@ export default function ContactForm() {
           <input
             type="text"
             placeholder="Name*"
+            name="name"
             value={formData.name}
+            onChange={handleChange}
             required
             className={`px-4 py-2 border ${
               formErrors.name ? "border-red-500" : "border-gray-300"
@@ -118,8 +120,10 @@ export default function ContactForm() {
         <div>
           <input
             type="email"
+            name="email"
             placeholder="Email*"
             value={formData.email}
+            onChange={handleChange}
             required
             className={`px-4 py-2 border ${
               formErrors.email ? "border-red-500" : "border-gray-300"
@@ -135,8 +139,10 @@ export default function ContactForm() {
         <div>
           <input
             type="text"
+            name="city"
             placeholder="City of Residence*"
             value={formData.city}
+            onChange={handleChange}
             required
             className={`px-4 py-2 border ${
               formErrors.city ? "border-red-500" : "border-gray-300"

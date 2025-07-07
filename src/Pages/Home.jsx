@@ -16,7 +16,13 @@ import world from '../assets/World-1.jpg'
 import "../App.css";
 
 export default function Home() {
+  const [canCreaetePackage, setCanCreatePackage] = useState(false);
   const [images, setImages] = useState([
+    { name: "India Packages", image: indiaPackage },
+    { name: "International Packages", image: internationalPackage },
+    { name: "Honeymoon Packages", image: honeyMoonPackage },
+    { name: "Europe Packages", image: europePackage },
+    { name: "Group Packages", image: groupPackage },
     { name: "India Packages", image: indiaPackage },
     { name: "International Packages", image: internationalPackage },
     { name: "Honeymoon Packages", image: honeyMoonPackage },
@@ -127,7 +133,18 @@ const tourismTexts = [
         </div>
       </div>
 
+      <button
+        className="flex fixed bottom-0 right-0 m-5 bg-primary p-3 rounded-lg text-white font-semibold hover:bg-black"
+        onClick={() => setCanCreatePackage(!canCreaetePackage)}
+      >
+        Create New Package
+      </button>
+      {/* Create new tour package by admin */}
+      {canCreaetePackage && (
+        <CreatePackage setCanCreaetePackage={setCanCreatePackage} />
+      )}
+
       <Footer />
-    </div>
+    </>
   );
 }
