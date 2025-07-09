@@ -36,9 +36,22 @@ export default {
             transform: "translateY(0)",
           },
         },
+        slideIn: {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0)" },
+        },
+        slideOut: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(100%)" },
+        },
       },
       animation: {
         slideDown: "slideDown 0.5s ease-out forwards",
+        slideIn: "slide-in 0.3s ease-out forwards",
+        slideOut: "slide-out 0.3s ease-in forwards",
+      },
+      fontSize: {
+        fluid: "clamp(14px, 1.2vw, 18px)",
       },
       keyframes: {
         "fade-in-up": {

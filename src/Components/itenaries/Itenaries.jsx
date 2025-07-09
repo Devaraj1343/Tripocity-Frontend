@@ -25,7 +25,7 @@ export default function Itenaries(props) {
       <div className="max-w-6xl mx-auto dark:text-white">
         {/* Tab headers */}
         <div className="flex gap-5 border-b-2 mb-4">
-          <h2
+          <h2 
             className={`cursor-pointer pb-2 ${
               activeComponent === "title" ? "border-b-2 border-red-700" : ""
             }`}

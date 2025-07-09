@@ -17,7 +17,7 @@ export default function Title(props) {
           <img src={camera} alt="camera" className="rounded-xl" />
         </div>
         <div className="p-5">
-          <h2 className="font-extrabold text-xl text-[#9333EA]">{cleaned}</h2>
+          <h2 className="font-extrabold text-xl text-primary">{cleaned}</h2>
           <h2 className="font-semibold">4 Nights / 5 Days</h2>
           <div className="flex flex-row gap-6">
             <p className="flex flex-row">

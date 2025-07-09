@@ -16,15 +16,11 @@ import world from '../assets/World-1.jpg'
 import "../App.css";
 import SuggestionCards from "../Components/SuggestionCards";
 import CreatePackage from "../Components/CreatePackage";
+import EnquireNow from "../Components/EnquireNow";
 
 export default function Home() {
   const [canCreaetePackage, setCanCreatePackage] = useState(false);
   const [images, setImages] = useState([
-    { name: "India Packages", image: indiaPackage },
-    { name: "International Packages", image: internationalPackage },
-    { name: "Honeymoon Packages", image: honeyMoonPackage },
-    { name: "Europe Packages", image: europePackage },
-    { name: "Group Packages", image: groupPackage },
     { name: "India Packages", image: indiaPackage },
     { name: "International Packages", image: internationalPackage },
     { name: "Honeymoon Packages", image: honeyMoonPackage },
@@ -51,7 +47,7 @@ const tourismTexts = [
   }, []);
   return (
     <div className="flex flex-col gap-11">
-      <div className="relative lg:h-[calc(100vh-112px)] sm:h-[60vh]">
+      <div className="relative lg:h-[calc(100vh-80px)] sm:h-[60vh]">
         {/* Background Image */}
         <img src={home1} alt="Tourism" className="w-full h-full object-cover" />
 
@@ -65,7 +61,7 @@ const tourismTexts = [
       </div>
       </div>
 
-      <div className="lg:h-[calc(100vh-112px)]  sm:h-[60vh]">
+      <div className="">
         <div className="my-8 text-2xl font-bold w-[90%] mx-auto dark:text-text-dark">
           Popular Packages
         </div>
@@ -110,8 +106,8 @@ const tourismTexts = [
         </div>
       </div>
 
-      <div
-        className="lg:h-[calc(100vh-112px)]  sm:h-[60vh] "
+      {/* <div
+        className=""
         style={{
           backgroundImage: `url(${world})`,
           backgroundSize: "cover",
@@ -133,7 +129,7 @@ const tourismTexts = [
           </div>
           <ContactForm className="w-[50%]" />
         </div>
-      </div>
+      </div> */}  
 
        <div>
 
