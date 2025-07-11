@@ -10,6 +10,8 @@ import Logo from "./logo";
 import Login from "../Pages/Login";
 import Signup from "../Pages/signup/LoginPage";
 import { AlignJustify } from 'lucide-react';
+import Package from "../Pages/package";
+import Navcard from "./Navcard";
 
 export default function Topbar() {
   const [hoveredItem, setHoveredItem] = useState(null);
@@ -17,6 +19,7 @@ export default function Topbar() {
   const navigate = useNavigate();
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
+  const [showNavcard,setShowNavcard] = useState(false)
 
   const DropdownData = {
     PACKAGES: PackageCategories,
@@ -30,13 +33,19 @@ export default function Topbar() {
   const handleNavigate = (region, place) => {
     const formatted = place.toLowerCase().replace(/\s+/g, "-");
     navigate(`/packages/${region}/${formatted}-tour-packages`);
+    // navigate(<Package region={region} place={formatted} />);
     setHoveredItem(null);
     setIsDropdownHovered(false);
   };
 
+  const openNavbar = ()=>{
+    setShowNavcard(true)
+  }
+ 
+
   return (
-    <div>
-      <div className="hidden min1000:flex flex-wrap sticky top-0 z-10 bg-white dark:bg-black items-center justify-between p-4 sm:p-6 md:p-8 text-base sm:text-lg font-medium dark:text-text-dark text-text-light shadow-bottom-only">
+    <div className="sticky top-0 z-10 bg-white dark:bg-black ">
+      <div className="hidden min1000:flex flex-wrap items-center justify-between p-4 sm:p-6 md:p-4 text-base sm:text-lg font-medium dark:text-text-dark text-text-light shadow-bottom-only">
         {/* Logo */}
         {/* <div className="font-rouge text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide">
         Tourism 
@@ -49,7 +58,7 @@ export default function Topbar() {
             {MenuItems.map((item, index) => (
               <li
                 key={index}
-                className="relative cursor-pointer px-2 py-1 rounded-sm hover:bg-[#9333ea] hover:text-white transition-colors duration-200"
+                className="relative text-fluid cursor-pointer px-2 py-1 rounded-sm hover:bg-[#9333ea] hover:text-white transition-colors duration-200"
                 onMouseEnter={() => setHoveredItem(item)}
                 onMouseLeave={() => {
                   if (!isDropdownHovered) setHoveredItem(null);
@@ -115,7 +124,7 @@ export default function Topbar() {
           )}
         </div>
 
-        <div className="bg-[#9333ea] hover:bg-black text-white px-2 py-1 rounded-sm transition-colors duration-200">
+        <div className="bg-[#9333ea] hover:bg-black text-white text-fluid px-2 py-1 rounded-sm transition-colors duration-200">
           <h2>Call Us :123456789</h2>
         </div>
 
@@ -126,14 +135,14 @@ export default function Topbar() {
 
           <div className="flex gap-4 text-sm sm:text-base font-medium">
             <button
-              className="px-3 py-1 rounded-md bg-transparent text-black dark:text-white hover:bg-purple-600 hover:text-white transition-colors duration-200"
+              className="px-3 py-1 text-fluid rounded-md bg-transparent text-black dark:text-white hover:bg-purple-600 hover:text-white transition-colors duration-200"
               onClick={() => setShowSignup(true)}
             >
               Register
             </button>
 
             <button
-              className="px-3 py-1 rounded-md bg-purple-600 text-white hover:bg-black transition-colors duration-200"
+              className="px-3 py-1 text-fluid rounded-md bg-purple-600 text-white hover:bg-black transition-colors duration-200"
               onClick={() => setShowLogin(true)}
             >
               Sign In
@@ -145,10 +154,18 @@ export default function Topbar() {
         </div>
       </div>
 
-      <div className="min1000:hidden  mt-4 shadow-bottom-only sticky top-0 z-10 bg-white dark:bg-black dark:text-text-dark text-text-light ">
+      <div className="min1000:hidden  mt-4 shadow-bottom-only  dark:text-text-dark text-text-light ">
         <div className="flex justify-between align-center items-center px-3 py-4">
            <Logo />
-        <AlignJustify />
+
+           <div className="flex gap-20 items-center">
+            <ToggleTheme/>
+               <AlignJustify onClick={()=> openNavbar()} className="" />
+          {
+            showNavcard && <Navcard onClose={() => setShowNavcard(false)} showNavcard={showNavcard} />
+          }
+           </div>
+        
         </div>
        
       </div>
