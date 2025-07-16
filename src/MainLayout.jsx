@@ -6,7 +6,7 @@ import Footer from "./Components/Footer";
 import EnquireNow from './Components/EnquireNow';
 
 const MainLayout = () => (
-  <div className='relative'>
+  <div className='relative h-full dark:bg-bg-dark text-text-dark'>
     <Topbar/>   
     <Outlet />
     <EnquireNow />

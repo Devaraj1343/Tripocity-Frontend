@@ -12,7 +12,7 @@ import { Phone } from "lucide-react";
 import { Mail } from "lucide-react";
 import { useState, useEffect } from "react";
 import ContactForm from "../Components/contactForm";
-import world from '../assets/World-1.jpg'
+import world from "../assets/World-1.jpg";
 import "../App.css";
 import SuggestionCards from "../Components/SuggestionCards";
 import CreatePackage from "../Components/CreatePackage";
@@ -27,18 +27,24 @@ export default function Home() {
     { name: "Europe Packages", image: europePackage },
     { name: "Group Packages", image: groupPackage },
   ]);
- 
-const tourismTexts = [
-  { text: "Discover the World’s Hidden Gems", animation: "animate-flyLeft" },
-  { text: "Adventure Awaits. Are You Ready?", animation: "animate-fadeScale" },
-  { text: "Explore. Dream. Travel.", animation: "animate-rotateFade" },
-  { text: "Unforgettable Experiences Await", animation: "animate-slideBounce" },
-  { text: "Your Journey Begins Here", animation: "animate-typing" },
-];
+
+  const tourismTexts = [
+    { text: "Discover the World’s Hidden Gems", animation: "animate-flyLeft" },
+    {
+      text: "Adventure Awaits. Are You Ready?",
+      animation: "animate-fadeScale",
+    },
+    { text: "Explore. Dream. Travel.", animation: "animate-rotateFade" },
+    {
+      text: "Unforgettable Experiences Await",
+      animation: "animate-slideBounce",
+    },
+    { text: "Your Journey Begins Here", animation: "animate-typing" },
+  ];
 
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
 
-   useEffect(() => {
+  useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTextIndex((prev) => (prev + 1) % tourismTexts.length);
     }, 5000); // Change every 3 seconds
@@ -51,14 +57,14 @@ const tourismTexts = [
         {/* Background Image */}
         <img src={home1} alt="Tourism" className="w-full h-full object-cover" />
 
-       <div className="absolute inset-0 bg-black/50 flex justify-center items-center text-center">
-        <h1
-          key={currentTextIndex} // Force re-render for animation restart
-          className={`text-4xl md:text-6xl font-bold text-white ${tourismTexts[currentTextIndex].animation}`}
-        >
-          {tourismTexts[currentTextIndex].text}
-        </h1>
-      </div>
+        <div className="absolute inset-0 bg-black/50 flex justify-center items-center text-center">
+          <h1
+            key={currentTextIndex} // Force re-render for animation restart
+            className={`text-4xl md:text-6xl font-bold text-white ${tourismTexts[currentTextIndex].animation}`}
+          >
+            {tourismTexts[currentTextIndex].text}
+          </h1>
+        </div>
       </div>
 
       <div className="">
@@ -106,48 +112,23 @@ const tourismTexts = [
         </div>
       </div>
 
-      {/* <div
-        className=""
-        style={{
-          backgroundImage: `url(${world})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <div className=" w-[65%] mx-auto h-full flex gap-10 ">
-          <div className="text-2xl w-[50%] font-bold flex flex-col items-center justify-center h-full gap-5">
-            <div className="font-math text-4xl">Stay Connected</div>
-            <div className="flex flex-col gap-3 items-center ">
-              <Phone className="w-8 h-8" />
-              <span className="text-gray-500">+91 1234567890 </span>
-            </div>
-            <div className="flex flex-col gap-3 items-center">
-              <Mail className="w-8 h-8" />
-              <span className="text-gray-500">tourism@gmail.com</span>
-            </div>
-          </div>
-          <ContactForm className="w-[50%]" />
-        </div>
-      </div> */}  
-
-       <div>
-
-       <button
-        className="flex fixed bottom-0 right-0 m-5 bg-primary p-3 rounded-lg text-white font-semibold hover:bg-black"
-        onClick={() => setCanCreatePackage(!canCreaetePackage)}
-      >
-        Create New Package
-      </button>
-      {/* Create new tour package by admin */}
-      {canCreaetePackage && (
-        <CreatePackage setCanCreaetePackage={setCanCreatePackage} />
-      )}
-
-      </div>
+      {/*
+  <div>
+    <button
+      className="flex fixed bottom-0 right-0 m-5 bg-primary p-3 rounded-lg text-white font-semibold hover:bg-black"
+      onClick={() => setCanCreatePackage(!canCreaetePackage)}
+    >
+      Create New Package
+    </button>
+     Create new tour package by admin 
+    {canCreaetePackage && (
+      <CreatePackage setCanCreaetePackage={setCanCreatePackage} />
+    )}
+  </div>
+*/}
 
       <div>
-        <SuggestionCards/>
+        <SuggestionCards />
       </div>
 
       <Footer />

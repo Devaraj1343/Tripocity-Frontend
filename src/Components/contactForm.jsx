@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { X } from 'lucide-react';
 
-export default function ContactForm() {
+export default function ContactForm({onClose}) {
   const [formErrors, setFormErrors] = useState({});
   const [formData, setFormData] = useState({
     name: "",
@@ -92,11 +93,16 @@ export default function ContactForm() {
   }
 
   return (
-    <div className="w-[80%] flex flex-col justify-center  ">
+    <div className="w-[100%] flex flex-col justify-center dark:bg-bg-dark dark:text-text-dark  ">
       <form className="flex flex-col gap-3">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+        <div className="flex justify-between"> 
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center dark:text-text-dark">
           Plan Your Trip
         </h2>
+
+        <X onClick={onClose} className="cursor-pointer"/>
+        </div>
+       
 
         <div>
           <input
@@ -107,7 +113,7 @@ export default function ContactForm() {
             required
             className={`px-4 py-2 border ${
               formErrors.name ? "border-red-500" : "border-gray-300"
-            } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full`}
+            } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full dark:bg-bg-dark `}
             onChange={handleChangeInput}
           />
           {formErrors.name && (
@@ -124,7 +130,7 @@ export default function ContactForm() {
             required
             className={`px-4 py-2 border ${
               formErrors.email ? "border-red-500" : "border-gray-300"
-            } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full`}
+            } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full dark:bg-bg-dark`}
             onChange={handleChangeInput}
           />
           {formErrors.email && (
@@ -141,7 +147,7 @@ export default function ContactForm() {
             required
             className={`px-4 py-2 border ${
               formErrors.city ? "border-red-500" : "border-gray-300"
-            } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full`}
+            } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full dark:bg-bg-dark`}
             onChange={handleChangeInput}
           />
           {formErrors.city && (
@@ -157,7 +163,7 @@ export default function ContactForm() {
             value={formData.phone}
             className={`px-4 py-2 border ${
               formErrors.phone ? "border-red-500" : "border-gray-300"
-            } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full`}
+            } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full dark:bg-bg-dark`}
             onChange={handleChangeInput}
             name="phone"
           />
@@ -174,7 +180,7 @@ export default function ContactForm() {
             value={formData.whatsapp}
             className={`px-4 py-2 border ${
               formErrors.whatsapp ? "border-red-500" : "border-gray-300"
-            } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full`}
+            } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full dark:bg-bg-dark`}
             onChange={handleChangeInput}
             name="whatsapp"
           />
@@ -191,7 +197,7 @@ export default function ContactForm() {
             value={formData.destination}
             className={`px-4 py-2 border ${
               formErrors.destination ? "border-red-500" : "border-gray-300"
-            } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full`}
+            } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full dark:bg-bg-dark`}
             onChange={handleChangeInput}
             name="destination"
           />
@@ -210,7 +216,7 @@ export default function ContactForm() {
             value={formData.travelDate}
             className={`px-4 py-2 border ${
               formErrors.travelDate ? "border-red-500" : "border-gray-300"
-            } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full`}
+            } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full dark:bg-bg-dark`}
             onChange={handleChangeInput}
             name="travelDate"
           />
@@ -230,7 +236,7 @@ export default function ContactForm() {
           value={formData.people}
           className={`px-4 py-2 border ${
             formErrors.people ? "border-red-500" : "border-gray-300"
-          } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full`}
+          } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full dark:bg-bg-dark`}
           onChange={handleChangeInput}
           name="people"
         />
@@ -248,7 +254,7 @@ export default function ContactForm() {
               required
               className={`appearance-none px-4 py-2 border ${
                 formErrors.vacationType ? "border-red-500" : "border-gray-300"
-              } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full`}
+              } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full dark:bg-bg-dark`}
               value={formData.vacationType}
               onChange={handleChangeInput}
             >

@@ -11,7 +11,7 @@ export default function Title(props) {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
   return (
-    <div className="space-y-4">
+    <div className="space-y-4  text-black dark:text-text-dark">
       <div className="flex flex-row gap-3 mt-10">
         <div className="size-56">
           <img src={camera} alt="camera" className="rounded-xl" />

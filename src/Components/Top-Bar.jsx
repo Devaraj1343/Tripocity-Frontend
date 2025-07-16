@@ -41,6 +41,10 @@ export default function Topbar() {
   const openNavbar = ()=>{
     setShowNavcard(true)
   }
+
+  const naviagteToRotue = (name)=>{
+    if(name.toLowerCase()=== "home") navigate("/");
+  }
  
 
   return (
@@ -63,6 +67,7 @@ export default function Topbar() {
                 onMouseLeave={() => {
                   if (!isDropdownHovered) setHoveredItem(null);
                 }}
+                onClick={()=> naviagteToRotue(item)}
               >
                 {item}
               </li>
@@ -80,7 +85,7 @@ export default function Topbar() {
               }}
             >
               <div
-                className="max-w-[1300px] mx-auto p-6 shadow-lg text-sm text-black grid auto-rows-min"
+                className="max-w-[1300px] mx-auto p-6 shadow-lg text-sm text-black grid auto-rows-min dark:bg-bg-dark dark:text-text-dark"
                 style={{
                   display: "grid",
                   gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
@@ -90,7 +95,7 @@ export default function Topbar() {
                 }}
               >
                 {Object.entries(currentDropdown).map(([region, places]) => (
-                  <div key={region} className="min-w-[180px] max-w-[200px]">
+                  <div key={region} className="min-w-[180px] max-w-[200px] ">
                     <h4 className="font-extrabold border-b border-gray-300 mb-2">
                       {region}
                     </h4>
@@ -134,16 +139,16 @@ export default function Topbar() {
           <ToggleTheme className="hover:text-primary cursor-pointer" />
 
           <div className="flex gap-4 text-sm sm:text-base font-medium">
-            <button
+            {/* <button
               className="px-3 py-1 text-fluid rounded-md bg-transparent text-black dark:text-white hover:bg-purple-600 hover:text-white transition-colors duration-200"
               onClick={() => setShowSignup(true)}
             >
               Register
-            </button>
+            </button> */}
 
             <button
               className="px-3 py-1 text-fluid rounded-md bg-purple-600 text-white hover:bg-black transition-colors duration-200"
-              onClick={() => setShowLogin(true)}
+              onClick={() => setShowSignup(true)}
             >
               Sign In
             </button>

@@ -50,7 +50,7 @@ export default function AccordionList() {
           >
             <div className="flex flex-row gap-3 items-center">
               <p className="font-medium w-16">Day-{index + 1}</p>
-              <MapPin className="text-red-600" />
+              <MapPin className="text-primary" />
               <span className="font-semibold">{item.title}</span>
             </div>
             <div>{openIndex === index ? <ChevronUp /> : <ChevronDown />}</div>
@@ -62,7 +62,7 @@ export default function AccordionList() {
               <div className="border-l-2 border-gray-300 -mt-3"></div>
               <div className="text-gray-700 relative dark:text-white">
                 {item.content}
-                <div className="absolute left-[-23px] w-3 h-3 rounded-full bg-red-600"></div>
+                <div className="absolute left-[-23px] w-3 h-3 rounded-full bg-primary"></div>
               </div>
             </div>
           )}

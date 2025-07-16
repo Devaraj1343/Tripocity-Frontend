@@ -16,7 +16,7 @@ export default function Itenaries(props) {
 
         {/* Overlay Description */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="bg-white text-lg bg-opacity-90 p-10 rounded shadow-md text-center max-w-6xl h-48 mx-auto translate-y-64">
+          <div className="bg-white text-black text-lg bg-opacity-90 p-10 rounded shadow-md text-center max-w-6xl h-48 mx-auto translate-y-64 dark:bg-gray-500 dark:text-text-dark">
             <Description />
           </div>
         </div>
@@ -24,18 +24,18 @@ export default function Itenaries(props) {
       <div className="h-52"> </div>
       <div className="max-w-6xl mx-auto dark:text-white">
         {/* Tab headers */}
-        <div className="flex gap-5 border-b-2 mb-4">
-          <h2 
-            className={`cursor-pointer pb-2 ${
-              activeComponent === "title" ? "border-b-2 border-red-700" : ""
+        <div className="flex gap-5 border-b-2 mb-4 dark:text-text-dark">
+          <h2
+            className={`cursor-pointer pb-2 text-text-light dark:text-text-dark ${
+              activeComponent === "title" ? "border-b-2 border-primary" : ""
             }`}
             onClick={() => setActiveComponent("title")}
           >
             Tamilnadu Tour
           </h2>
           <h2
-            className={`cursor-pointer pb-2 ${
-              activeComponent === "cost" ? "border-b-2 border-red-700" : ""
+            className={`cursor-pointer pb-2n text-text-light dark:text-text-dark ${
+              activeComponent === "cost" ? "border-b-2 border-primary" : ""
             }`}
             onClick={() => setActiveComponent("cost")}
           >
@@ -44,9 +44,7 @@ export default function Itenaries(props) {
         </div>
 
         {/* Dynamic content render */}
-        {activeComponent === "title" && (
-          <Title region={region} place={place} />
-        )}
+        {activeComponent === "title" && <Title region={region} place={place} />}
         {activeComponent === "cost" && (
           <ItenariesCost region={region} place={place} />
         )}

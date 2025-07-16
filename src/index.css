@@ -1,3 +1,59 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* General Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;              /* Vertical scrollbar width */
+  height: 8px;             /* Horizontal scrollbar height */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Transparent track for clean look */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 100, 100, 0.5); /* Default thumb color */
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(100, 100, 100, 0.7); /* Darker on hover */
+}
+
+/* Firefox */
+html {
+  scrollbar-width: thin; /* thin | auto | none */
+  scrollbar-color: rgba(100, 100, 100, 0.5) transparent;
+}
+
+/* 🌙 Dark Mode Support (if you use a .dark class or prefers-color-scheme) */
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(200, 200, 200, 0.3); /* Lighter thumb in dark mode */
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(200, 200, 200, 0.5); /* Slightly more visible on hover */
+  }
+
+  html {
+    scrollbar-color: rgba(200, 200, 200, 0.3) transparent;
+  }
+}
+
+/* Optional: If you use Tailwind's dark class */
+.dark ::-webkit-scrollbar-thumb {
+  background-color: rgba(200, 200, 200, 0.3);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(200, 200, 200, 0.5);
+}
+
+.dark html {
+  scrollbar-color: rgba(200, 200, 200, 0.3) transparent;
+}
