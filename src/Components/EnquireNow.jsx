@@ -5,6 +5,7 @@ import ContactForm from "./contactForm";
 export default function EnquireNow() {
   const [isOpen, setIsOpen] = useState(false);
 
+
   return (
     <div className=" bottom-[5%] right-[2%]  fixed" >
        <main>

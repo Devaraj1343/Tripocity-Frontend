@@ -1,7 +1,7 @@
 import "./App.css";
 import MainLayout from "./MainLayout";
 import Home from "./Pages/Home";
-import Login from "./Pages/Login";
+import Login from "./Pages/LoginPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Package from "./Pages/package";
 import Toaster from "./Components/Toaster";

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect,useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import ToggleTheme from "./Toggle-Theme";
 import { MenuItems } from "../common/constants";
@@ -7,11 +7,14 @@ import { HoneymoonCategories } from "../common/packageConstants/honeymoon";
 import { WeddingCategories } from "../common/packageConstants/wedding";
 import { IndiaCategories } from "../common/packageConstants/india";
 import Logo from "./logo";
-import Login from "../Pages/Login";
-import Signup from "../Pages/signup/LoginPage";
+import Login from "../Pages/LoginPage";
+import Signup from "../Pages/SignUp";
 import { AlignJustify } from 'lucide-react';
 import Package from "../Pages/package";
 import Navcard from "./Navcard";
+import { CircleUser } from 'lucide-react';
+
+
 
 export default function Topbar() {
   const [hoveredItem, setHoveredItem] = useState(null);
@@ -19,7 +22,11 @@ export default function Topbar() {
   const navigate = useNavigate();
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
-  const [showNavcard,setShowNavcard] = useState(false)
+  const [showNavcard,setShowNavcard] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showUsercard, setShowUsercard] = useState(false);
+  const [userName, setUserName] = useState("");
+  const menuRef = useRef(null);
 
   const DropdownData = {
     PACKAGES: PackageCategories,
@@ -45,6 +52,19 @@ export default function Topbar() {
   const naviagteToRotue = (name)=>{
     if(name.toLowerCase()=== "home") navigate("/");
   }
+
+  useEffect(() => {
+  function handleClickOutside(event) {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setShowUsercard(false); // 👈 close the menu
+    }
+  }
+
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, []);
  
 
   return (
@@ -67,7 +87,7 @@ export default function Topbar() {
                 onMouseLeave={() => {
                   if (!isDropdownHovered) setHoveredItem(null);
                 }}
-                onClick={()=> naviagteToRotue(item)}
+                onClick={() => naviagteToRotue(item)}
               >
                 {item}
               </li>
@@ -138,42 +158,126 @@ export default function Topbar() {
           {/* Theme Toggle Button */}
           <ToggleTheme className="hover:text-primary cursor-pointer" />
 
-          <div className="flex gap-4 text-sm sm:text-base font-medium">
-            {/* <button
+          {!isLoggedIn ? (
+            <div className="flex gap-4 text-sm sm:text-base font-medium">
+              {/* <button
               className="px-3 py-1 text-fluid rounded-md bg-transparent text-black dark:text-white hover:bg-purple-600 hover:text-white transition-colors duration-200"
               onClick={() => setShowSignup(true)}
             >
               Register
             </button> */}
 
-            <button
-              className="px-3 py-1 text-fluid rounded-md bg-purple-600 text-white hover:bg-black transition-colors duration-200"
-              onClick={() => setShowSignup(true)}
+              <button
+                className="px-3 py-1 text-fluid rounded-md bg-purple-600 text-white hover:bg-black transition-colors duration-200"
+                onClick={() => setShowLogin(true)}
+              >
+                Sign In
+              </button>
+            </div>
+          ) : (
+            <div>
+              <CircleUser
+                className="w-8 h-8 cursor-pointer hover:text-primary transition-colors duration-200"
+                onClick={() => setShowUsercard(!showUsercard)}
+              />
+            </div>
+          )}
+
+          {showUsercard && (
+            <div
+              ref={menuRef}
+              className="absolute right-4 top-14 w-56 bg-white dark:bg-bg-dark rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 z-50 transition-all duration-200 ease-out"
             >
-              Sign In
-            </button>
-          </div>
+              {/* Greeting */}
+              <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Signed in as
+                </p>
+                <p className="text-base font-semibold text-gray-800 dark:text-gray-200 truncate">
+                  Hi, {userName}!
+                </p>
+              </div>
+
+              {/* Menu Items */}
+              <ul className="flex flex-col py-2">
+                <li className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors rounded-md">
+                  View Profile
+                </li>
+                <li className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors rounded-md">
+                  Settings
+                </li>
+                <li
+                  className="px-4 py-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900 cursor-pointer transition-colors rounded-md"
+                  onClick={() => {
+                    localStorage.removeItem("authToken");
+                    setIsLoggedIn(false);
+                    setShowUsercard(false);
+                    setUserName("");
+                  }}
+                >
+                  Logout
+                </li>
+              </ul>
+            </div>
+          )}
+
           {/* Login Popup & signup Popup */}
-          {showLogin && <Login onClose={() => setShowLogin(false)} />}
-          {showSignup && <Signup onClose={() => setShowSignup(false)} />}
         </div>
       </div>
 
       <div className="min1000:hidden  mt-4 shadow-bottom-only  dark:text-text-dark text-text-light ">
-        <div className="flex justify-between align-center items-center px-3 py-4">
-           <Logo />
+        <div className="flex justify-between align-center items-center px-3 py-3">
+          <Logo className="cursor-pointer text-2xl " />
 
-           <div className="flex gap-20 items-center">
-            <ToggleTheme/>
-               <AlignJustify onClick={()=> openNavbar()} className="" />
-          {
-            showNavcard && <Navcard onClose={() => setShowNavcard(false)} showNavcard={showNavcard} />
-          }
-           </div>
-        
+          <div className="flex gap-20 items-center">
+            <ToggleTheme />
+            <AlignJustify onClick={() => openNavbar()} className="cursor-pointer" />
+            {showNavcard && (
+              <Navcard
+                onClose={() => setShowNavcard(false)}
+                openSignIn={() => {
+                  setShowNavcard(false);
+                  setShowLogin(true);
+                }}
+                showNavcard={showNavcard}
+                isLoggedIn={isLoggedIn}
+                userName={userName}
+                logOut={() => {
+                  // Do logout
+                  localStorage.removeItem("authToken");
+                  setIsLoggedIn(false);
+                  setShowNavcard(false);
+                  setUserName("");
+                }}
+              />
+            )}
+          </div>
         </div>
-       
       </div>
+
+      {showLogin && (
+        <Login
+          onClose={() => setShowLogin(false)}
+          onSwitch={() => {
+            setShowLogin(false);
+            setShowSignup(true);
+          }}
+          onLoginSuccess={(name) => {
+            setIsLoggedIn(true); // ✅ user is now logged in
+            setShowLogin(false);
+            setUserName(name);
+          }}
+        />
+      )}
+      {showSignup && (
+        <Signup
+          onClose={() => setShowSignup(false)}
+          onSwitch={() => {
+            setShowSignup(false);
+            setShowLogin(true);
+          }}
+        />
+      )}
     </div>
   );
 }
