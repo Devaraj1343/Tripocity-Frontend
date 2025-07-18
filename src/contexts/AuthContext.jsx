@@ -1,45 +1,37 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { jwtDecode } from 'jwt-decode'; // ✅ Correct
-
+import React, { createContext, useContext, useState, useEffect } from "react";
+import {jwtDecode} from "jwt-decode";
 
 const AuthContext = createContext();
 
-export  const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // { name, email, role, ... }
-  const [loading, setLoading] = useState(true);
-
-  // Auto-login on page load
+export const AuthProvider = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     if (token) {
       try {
         const decoded = jwtDecode(token);
-        setUser(decoded); // ✅ Set user globally
-      } catch (err) {
-        console.error("Invalid token:", err);
+        setIsLoggedIn(true);
+        console.log('decoded',decoded);
+        
+        setUser(decoded); // fallback if name missing
+      } catch {
+        console.log("Invalid token");
         localStorage.removeItem("authToken");
       }
     }
-    setLoading(false);
-  }, []);
+  });
 
-  const login = (token) => {
-    localStorage.setItem("authToken", token);
-    const decoded = jwtDecode(token);
-    setUser(decoded);
-  };
-
-  const logout = () => {
-    localStorage.removeItem("authToken");
-    setUser(null);
+  const updateAuthStatus = (loggedIn, userInfo = null) => {
+    setIsLoggedIn(loggedIn);
+    setUser(userInfo);
   };
 
   return (
-    <AuthContext.Provider value={{ user, isLoggedIn: !!user, login, logout }}>
-      {!loading && children}
+    <AuthContext.Provider value={{ isLoggedIn, user, updateAuthStatus }}>
+      {children}
     </AuthContext.Provider>
   );
 };
 
-// Custom hook for easy use
 export const useAuth = () => useContext(AuthContext);

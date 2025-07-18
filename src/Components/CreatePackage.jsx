@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { X } from 'lucide-react';
 
 // Sample country list (you can expand this or fetch dynamically)
 const countryOptions = [
@@ -31,7 +32,7 @@ const schema = yup.object().shape({
   startDate: yup.date().required("Start date is required"),
 });
 
-export default function CreatePackage({ setCanCreaetePackage }) {
+export default function CreatePackage({  onClose }) {
   const {
     register,
     handleSubmit,
@@ -49,15 +50,21 @@ export default function CreatePackage({ setCanCreaetePackage }) {
   return (
     <div
       className="backdrop-blur-sm fixed  top-0 left-0 right-0 bottom-0 z-10 dark:text-white"
-      onClick={() => setCanCreaetePackage(false)}
+     
     >
       <div
         className="max-w-3xl m-auto p-6 border rounded shadow-md bg-white dark:bg-gray-800 dark:border-gray-500 z-40 animate-slideDown "
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-2xl font-semibold mb-4 text-center">
+        <div className="flex justify-between items-center mb-4">
+            <h2 className="text-2xl font-semibold mb-4 text-center">
           New Tourism Package
         </h2>
+
+        <X className="cursor-pointer" onClick={onClose}/>
+
+        </div>
+      
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           {/* Country Dropdown */}
@@ -152,7 +159,7 @@ export default function CreatePackage({ setCanCreaetePackage }) {
           <div className="flex  gap-4">
             <button
               className="w-full py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 "
-              onClick={() => setCanCreaetePackage(false)}
+              onClick={() => onClose()}
             >
               Cancel
             </button>

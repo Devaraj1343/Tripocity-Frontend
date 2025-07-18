@@ -1,4 +1,4 @@
-import { useState,useEffect,useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import ToggleTheme from "./Toggle-Theme";
 import { MenuItems } from "../common/constants";
@@ -9,12 +9,11 @@ import { IndiaCategories } from "../common/packageConstants/india";
 import Logo from "./logo";
 import Login from "../Pages/LoginPage";
 import Signup from "../Pages/SignUp";
-import { AlignJustify } from 'lucide-react';
-import Package from "../Pages/package";
+import { AlignJustify, CircleUser } from 'lucide-react';
 import Navcard from "./Navcard";
-import { CircleUser } from 'lucide-react';
 
-
+// 👇 import AuthContext
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Topbar() {
   const [hoveredItem, setHoveredItem] = useState(null);
@@ -22,11 +21,12 @@ export default function Topbar() {
   const navigate = useNavigate();
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
-  const [showNavcard,setShowNavcard] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showNavcard, setShowNavcard] = useState(false);
   const [showUsercard, setShowUsercard] = useState(false);
-  const [userName, setUserName] = useState("");
   const menuRef = useRef(null);
+
+  // 👇 get auth state from context
+  const { isLoggedIn, user, updateAuthStatus } = useAuth();
 
   const DropdownData = {
     PACKAGES: PackageCategories,
@@ -40,43 +40,32 @@ export default function Topbar() {
   const handleNavigate = (region, place) => {
     const formatted = place.toLowerCase().replace(/\s+/g, "-");
     navigate(`/packages/${region}/${formatted}-tour-packages`);
-    // navigate(<Package region={region} place={formatted} />);
     setHoveredItem(null);
     setIsDropdownHovered(false);
   };
 
-  const openNavbar = ()=>{
-    setShowNavcard(true)
-  }
+  const openNavbar = () => setShowNavcard(true);
 
-  const naviagteToRotue = (name)=>{
-    if(name.toLowerCase()=== "home") navigate("/");
-  }
+  const naviagteToRotue = (name) => {
+    if (name.toLowerCase() === "home") navigate("/");
+  };
 
   useEffect(() => {
-  function handleClickOutside(event) {
-    if (menuRef.current && !menuRef.current.contains(event.target)) {
-      setShowUsercard(false); // 👈 close the menu
+    function handleClickOutside(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setShowUsercard(false);
+      }
     }
-  }
-
-  document.addEventListener("mousedown", handleClickOutside);
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside);
-  };
-}, []);
- 
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="sticky top-0 z-10 bg-white dark:bg-black ">
       <div className="hidden min1000:flex flex-wrap items-center justify-between p-4 sm:p-6 md:p-4 text-base sm:text-lg font-medium dark:text-text-dark text-text-light shadow-bottom-only">
-        {/* Logo */}
-        {/* <div className="font-rouge text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide">
-        Tourism 
-      </div> */}
         <Logo />
-
-        {/* Menu */}
         <div className="relative">
           <ul className="flex gap-6 text-sm md:text-base">
             {MenuItems.map((item, index) => (
@@ -94,7 +83,6 @@ export default function Topbar() {
             ))}
           </ul>
 
-          {/* Dropdown */}
           {hoveredItem && currentDropdown && (
             <div
               className="absolute top-full left-0 right-0 bg-white z-20"
@@ -132,18 +120,6 @@ export default function Topbar() {
                     </ul>
                   </div>
                 ))}
-
-                {/* Optional: View All Packages button
-              {hoveredItem === "PACKAGES" && (
-                <div className="w-full flex justify-end mt-4">
-                  <button
-                    onClick={() => navigate("/packages")}
-                    className="bg-black text-white text-sm font-semibold px-4 py-2"
-                  >
-                    View All Packages
-                  </button>
-                </div>
-              )} */}
               </div>
             </div>
           )}
@@ -153,20 +129,11 @@ export default function Topbar() {
           <h2>Call Us :123456789</h2>
         </div>
 
-        {/* Toggle + Avatar */}
         <div className="flex items-center gap-4 sm:gap-6 md:gap-8">
-          {/* Theme Toggle Button */}
           <ToggleTheme className="hover:text-primary cursor-pointer" />
 
           {!isLoggedIn ? (
             <div className="flex gap-4 text-sm sm:text-base font-medium">
-              {/* <button
-              className="px-3 py-1 text-fluid rounded-md bg-transparent text-black dark:text-white hover:bg-purple-600 hover:text-white transition-colors duration-200"
-              onClick={() => setShowSignup(true)}
-            >
-              Register
-            </button> */}
-
               <button
                 className="px-3 py-1 text-fluid rounded-md bg-purple-600 text-white hover:bg-black transition-colors duration-200"
                 onClick={() => setShowLogin(true)}
@@ -188,17 +155,15 @@ export default function Topbar() {
               ref={menuRef}
               className="absolute right-4 top-14 w-56 bg-white dark:bg-bg-dark rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 z-50 transition-all duration-200 ease-out"
             >
-              {/* Greeting */}
               <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   Signed in as
                 </p>
                 <p className="text-base font-semibold text-gray-800 dark:text-gray-200 truncate">
-                  Hi, {userName}!
+                  Hi, {user?.name || "Guest"}!
                 </p>
               </div>
 
-              {/* Menu Items */}
               <ul className="flex flex-col py-2">
                 <li className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors rounded-md">
                   View Profile
@@ -210,9 +175,8 @@ export default function Topbar() {
                   className="px-4 py-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900 cursor-pointer transition-colors rounded-md"
                   onClick={() => {
                     localStorage.removeItem("authToken");
-                    setIsLoggedIn(false);
+                    updateAuthStatus(false); // 👈 logout globally
                     setShowUsercard(false);
-                    setUserName("");
                   }}
                 >
                   Logout
@@ -220,18 +184,15 @@ export default function Topbar() {
               </ul>
             </div>
           )}
-
-          {/* Login Popup & signup Popup */}
         </div>
       </div>
 
-      <div className="min1000:hidden  mt-4 shadow-bottom-only  dark:text-text-dark text-text-light ">
+      <div className="min1000:hidden mt-4 shadow-bottom-only dark:text-text-dark text-text-light ">
         <div className="flex justify-between align-center items-center px-3 py-3">
           <Logo className="cursor-pointer text-2xl " />
-
           <div className="flex gap-20 items-center">
             <ToggleTheme />
-            <AlignJustify onClick={() => openNavbar()} className="cursor-pointer" />
+            <AlignJustify onClick={openNavbar} className="cursor-pointer" />
             {showNavcard && (
               <Navcard
                 onClose={() => setShowNavcard(false)}
@@ -241,13 +202,11 @@ export default function Topbar() {
                 }}
                 showNavcard={showNavcard}
                 isLoggedIn={isLoggedIn}
-                userName={userName}
+                userName={user?.name || ""}
                 logOut={() => {
-                  // Do logout
                   localStorage.removeItem("authToken");
-                  setIsLoggedIn(false);
+                  updateAuthStatus(false); // 👈 logout globally
                   setShowNavcard(false);
-                  setUserName("");
                 }}
               />
             )}
@@ -263,9 +222,8 @@ export default function Topbar() {
             setShowSignup(true);
           }}
           onLoginSuccess={(name) => {
-            setIsLoggedIn(true); // ✅ user is now logged in
+            updateAuthStatus(true, { name }); // 👈 login globally
             setShowLogin(false);
-            setUserName(name);
           }}
         />
       )}

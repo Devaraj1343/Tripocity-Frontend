@@ -71,7 +71,7 @@ export default function LoginPage({ onClose,onSwitch,onLoginSuccess }) {
         <input
           type="password"
           placeholder="Password"
-          className="w-full mb-2 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2  dark:bg-bg-dark dark:text-text-dark focus:ring-purple-500"
+          className="w-full mb-2 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 text-text-light dark:bg-bg-dark dark:text-text-dark focus:ring-purple-500"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
