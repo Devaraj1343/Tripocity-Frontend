@@ -4,6 +4,7 @@ import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Package from "./Pages/package";
+import Toaster from "./Components/Toaster";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           </Route>
         </Routes>
       </Router>
+      <Toaster/>
       {/* <Footer /> */}
     </div>
   );

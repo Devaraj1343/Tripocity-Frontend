@@ -1,6 +1,55 @@
 import React from 'react';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 export default function LoginPage({ onClose }) {
+
+
+   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3100/api';
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setSuccess('');
+
+    try {
+      const response = await fetch(`${apiUrl}/users/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Login successful
+        console.log('Login success:', data);
+        setSuccess(data.message);
+        toast.success('Login successful');
+        // Optionally store token in localStorage
+        localStorage.setItem('token', data.data.token);
+      } else {
+        // Login failed
+        console.error('Login failed:', data.message);
+        toast.error('Login failed');
+        setError(data.message || 'Login failed');
+      }
+
+    } catch (err) {
+      console.error('Error during login:', err);
+      setError('Something went wrong. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center   ">  
       <div className="rounded-2xl shadow-2xl p-8 w-full max-w-md relative bg-white dark:bg-bg-dark dark:text-text-dark">
@@ -11,6 +60,8 @@ export default function LoginPage({ onClose }) {
           type="email"
           placeholder="Email"
           className="w-full mb-4 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 dark:bg-bg-dark dark:text-text-dark focus:ring-purple-500"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
 
         {/* Password */}
@@ -18,6 +69,8 @@ export default function LoginPage({ onClose }) {
           type="password"
           placeholder="Password"
           className="w-full mb-2 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 dark:bg-bg-dark dark:text-text-dark focus:ring-purple-500"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
 
         {/* Forgot Password */}
@@ -26,7 +79,7 @@ export default function LoginPage({ onClose }) {
         </div>
 
         {/* Sign In Button */}
-        <button className="w-full bg-primary text-white py-2 rounded-md hover:bg-purple-700 mb-4">
+        <button className="w-full bg-primary text-white py-2 rounded-md hover:bg-purple-700 mb-4" onClick={handleLogin} >
           Sign In
         </button>
 

@@ -16,6 +16,7 @@ export default function Login({ onClose }) {
             className="dark:bg-bg-dark dark:text-text-dark dark:border-gray-700 dark:focus:border px-4 py-2 border rounded-md outline-none"
           />
 
+
           <div className="flex justify-end gap-2">
             <button
               type="button"

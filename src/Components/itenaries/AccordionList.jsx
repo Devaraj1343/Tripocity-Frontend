@@ -59,7 +59,7 @@ export default function AccordionList() {
           {/* Accordion Content */}
           {openIndex === index && (
             <div className="flex gap-4 pl-[6.5rem] pr-4 pb-4">
-              <div className="border-l-2 border-gray-300 -mt-3"></div>
+              <div className="border-l-2 border-primary w-300 -mt-3"></div>
               <div className="text-gray-700 relative dark:text-white">
                 {item.content}
                 <div className="absolute left-[-23px] w-3 h-3 rounded-full bg-primary"></div>
