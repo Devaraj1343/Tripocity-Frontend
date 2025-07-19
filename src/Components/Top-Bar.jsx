@@ -14,6 +14,8 @@ import Navcard from "./Navcard";
 
 // 👇 import AuthContext
 import { useAuth } from "../contexts/AuthContext";
+import ForgotPassword from "../Pages/forgotPassword";
+import { toast } from "react-toastify";
 
 export default function Topbar() {
   const [hoveredItem, setHoveredItem] = useState(null);
@@ -23,6 +25,7 @@ export default function Topbar() {
   const [showSignup, setShowSignup] = useState(false);
   const [showNavcard, setShowNavcard] = useState(false);
   const [showUsercard, setShowUsercard] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
   const menuRef = useRef(null);
 
   // 👇 get auth state from context
@@ -159,6 +162,7 @@ export default function Topbar() {
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   Signed in as
                 </p>
+
                 <p className="text-base font-semibold text-gray-800 dark:text-gray-200 truncate">
                   Hi, {user?.name || "Guest"}!
                 </p>
@@ -175,8 +179,10 @@ export default function Topbar() {
                   className="px-4 py-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900 cursor-pointer transition-colors rounded-md"
                   onClick={() => {
                     localStorage.removeItem("authToken");
-                    updateAuthStatus(false); // 👈 logout globally
                     setShowUsercard(false);
+                     toast.warning("Logged out successfully");
+                    updateAuthStatus(false); // 👈 logout globally
+                   
                   }}
                 >
                   Logout
@@ -202,11 +208,13 @@ export default function Topbar() {
                 }}
                 showNavcard={showNavcard}
                 isLoggedIn={isLoggedIn}
-                userName={user?.name || ""}
+                userName={user?.name || "Guest"}
                 logOut={() => {
                   localStorage.removeItem("authToken");
+                   setShowNavcard(false);
+                   toast.warning("Logged out successfully");
                   updateAuthStatus(false); // 👈 logout globally
-                  setShowNavcard(false);
+                  
                 }}
               />
             )}
@@ -222,8 +230,12 @@ export default function Topbar() {
             setShowSignup(true);
           }}
           onLoginSuccess={(name) => {
-            updateAuthStatus(true, { name }); // 👈 login globally
             setShowLogin(false);
+            updateAuthStatus(true, name); // 👈 login globally
+          }}
+          onForgotPassword={() => {
+            setShowLogin(false);
+            setShowForgotPassword(true);
           }}
         />
       )}
@@ -235,6 +247,9 @@ export default function Topbar() {
             setShowLogin(true);
           }}
         />
+      )}
+      {showForgotPassword && (
+        <ForgotPassword onClose={() => setShowForgotPassword(false)} />
       )}
     </div>
   );

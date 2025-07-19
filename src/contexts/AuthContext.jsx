@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
 
   const updateAuthStatus = (loggedIn, userInfo = null) => {
     setIsLoggedIn(loggedIn);
-    setUser(userInfo);
+    setUserName(userInfo.name)
   };
 
   return (

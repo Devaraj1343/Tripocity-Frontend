@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
-export default function LoginPage({ onClose,onSwitch,onLoginSuccess }) {
+export default function LoginPage({ onClose,onSwitch,onLoginSuccess,onForgotPassword }) {
 
 
    const [email, setEmail] = useState('');
@@ -78,9 +78,13 @@ export default function LoginPage({ onClose,onSwitch,onLoginSuccess }) {
 
         {/* Forgot Password */}
         <div className="text-right mb-4 flex flex-col gap-1">
-          <a href="#" className="text-sm text-primary hover:underline">
-            Forgot password?
-          </a>
+          <button
+            type="button"
+            onClick={onForgotPassword}
+            className="text-sm text-primary hover:underline text-end"
+          >
+            Forgot Password?
+          </button>
           <button
             type="button"
             onClick={onSwitch}
