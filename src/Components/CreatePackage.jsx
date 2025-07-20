@@ -14,7 +14,6 @@ countries.registerLocale(enLocale);
 const schema = yup.object().shape({
   title: yup.string().required("Package name is required"),
   country: yup.string().required("Country is required"),
-  destination: yup.string().required("Destination is required"),
   duration: yup
     .string()
     .required("Duration is required")
@@ -24,7 +23,6 @@ const schema = yup.object().shape({
     .typeError("Price must be a number")
     .required("Price is required")
     .positive("Price must be positive"),
-  startDate: yup.date().required("Start date is required"),
   places: yup.array().of(
     yup.object().shape({
       name: yup.string().required("Place name is required"),
@@ -85,35 +83,48 @@ export default function CreatePackage({ onClose }) {
     value: code,
   }));
 
-  const onSubmit = async (data) => {
-     console.log("Form data:", data);
-    const formData = new FormData();
+ const onSubmit = async (data) => {
+  console.log("Form data:", data);
+  const formData = new FormData();
+  const token = localStorage.getItem("authToken");
 
-    formData.append("packageType", data.packageType);
-    formData.append("price", data.price);
+  formData.append("packageType", data.packageType);
+  formData.append("pricePerPerson", data.price);
+  formData.append("title", data.title);
+  formData.append("durationDays", data.duration); 
+  formData.append("country", data.country);
 
-    data.places.forEach((place, index) => {
-      formData.append(`places[${index}][name]`, place.name);
-      formData.append(`places[${index}][description]`, place.description);
-      formData.append(`places[${index}][duration]`, place.duration);
-      formData.append(`places[${index}][imageType]`, place.imageType);
+  data.places.forEach((place, index) => {
+    formData.append(`places[${index}][placeName]`, place.name);
+    formData.append(`places[${index}][description]`, place.description);
+    formData.append(`places[${index}][duration]`, place.duration);
+    formData.append(`places[${index}][imageType]`, place.imageType);
 
-      if (place.imageType === "file") {
-        formData.append(`places[${index}][imageFile]`, place.imageFile[0]);
-      } else {
-        formData.append(`places[${index}][imageUrl]`, place.imageUrl);
-      }
-    });
-
-    try {
-      const response = await axios.post(`${apiUrl}/packages/create`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-      console.log("Success:", response.data);
-    } catch (error) {
-      console.error("Error:", error);
+    if (place.imageType === "file") {
+      formData.append(`places[${index}][imageFile]`, place.imageFile?.[0]);
+    } else {
+      formData.append(`places[${index}][imageUrl]`, place.imageUrl);
     }
-  };
+  });
+
+  // Debug check
+  for (let pair of formData.entries()) {
+    console.log(pair[0], pair[1]);
+  }
+
+  try {
+    const response = await axios.post(`${apiUrl}/packages/create`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log("Success:", response.data);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
 
   const watchPlaces = watch("places");
 
@@ -130,7 +141,7 @@ export default function CreatePackage({ onClose }) {
           <X className="cursor-pointer" onClick={onClose} />
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+<form onSubmit={handleSubmit(onSubmit, (err) => console.log("Validation Errors:", err))}>
           <div>
             <label>Country</label>
             <select
