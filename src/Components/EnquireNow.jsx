@@ -11,10 +11,7 @@ export default function EnquireNow() {
 
   const isAdmin = isLoggedIn && user?.role === "admin";
 
-    useEffect(() => {
-    console.log("EnquireNow re-rendered, user is:", user);
-  }, [user])
-
+    
   return (
     <div className="bottom-[5%] right-[2%] fixed">
       <main>

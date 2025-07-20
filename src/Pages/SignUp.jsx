@@ -32,7 +32,7 @@ export default function SignupPage({ onClose,onSwitch }) {
 
       if (response.ok) {
         // Login successful
-        console.log('Signup success:', data);
+        // console.log('Signup success:', data);
         setSuccess(data.message);
         toast.success('Signup successful');
         onClose(); // Close the signup modal on success

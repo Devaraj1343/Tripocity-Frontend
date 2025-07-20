@@ -18,14 +18,14 @@ export default function ContactForm({onClose}) {
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
-    console.log("Input changed:", e.target);
+    // console.log("Input changed:", e.target);
 
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
 
-    console.log("name:", name, "value:", value);
+    // console.log("name:", name, "value:", value);
   };
 
   const validateForm = () => {
@@ -284,7 +284,7 @@ export default function ContactForm({onClose}) {
           className="mt-4 px-6 py-2 bg-primary text-white rounded-lg hover:bg-black transition-colors duration-300"
           onClick={(e) => {
             e.preventDefault();
-            console.log("Form submitted with data:", formData);
+            // console.log("Form submitted with data:", formData);
             submitForm()
             // Here you can handle the form submission, e.g., send data to an API
           }}

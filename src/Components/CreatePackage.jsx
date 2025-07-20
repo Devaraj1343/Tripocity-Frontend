@@ -4,8 +4,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { X } from "lucide-react";
 import countries from "i18n-iso-countries";
+import axios from "axios";
 import enLocale from "i18n-iso-countries/langs/en.json";
 
+const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3100/api";
 countries.registerLocale(enLocale);
 
 // Yup Schema
@@ -83,15 +85,40 @@ export default function CreatePackage({ onClose }) {
     value: code,
   }));
 
-  const onSubmit = (data) => {
-    console.log("Submitted Package:", data);
-    alert("Tourism package submitted successfully!");
+  const onSubmit = async (data) => {
+     console.log("Form data:", data);
+    const formData = new FormData();
+
+    formData.append("packageType", data.packageType);
+    formData.append("price", data.price);
+
+    data.places.forEach((place, index) => {
+      formData.append(`places[${index}][name]`, place.name);
+      formData.append(`places[${index}][description]`, place.description);
+      formData.append(`places[${index}][duration]`, place.duration);
+      formData.append(`places[${index}][imageType]`, place.imageType);
+
+      if (place.imageType === "file") {
+        formData.append(`places[${index}][imageFile]`, place.imageFile[0]);
+      } else {
+        formData.append(`places[${index}][imageUrl]`, place.imageUrl);
+      }
+    });
+
+    try {
+      const response = await axios.post(`${apiUrl}/packages/create`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      console.log("Success:", response.data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   const watchPlaces = watch("places");
 
   return (
-    <div className="backdrop-blur-sm top-0 left-0 right-0 bottom-0 z-10 dark:text-white">
+    <div className="backdrop-blur-sm top-0 left-0 right-0 bottom-0 z-10 dark:text-white text-md font-medium text-gray-700 mb-1">
       <div
         className="max-w-3xl m-auto p-6 border rounded shadow-md bg-white dark:bg-gray-800 dark:border-gray-500 z-40 animate-slideDown"
         onClick={(e) => e.stopPropagation()}
@@ -142,7 +169,34 @@ export default function CreatePackage({ onClose }) {
             />
             <p className="text-red-500 text-sm">{errors.duration?.message}</p>
           </div>
-
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Package Type</label>
+            <select
+              {...register("packageType")}
+              className="w-full p-2 border border-gray-300 rounded text-black focus:outline-none  "
+              defaultValue=""
+            >
+              <option value="" disabled className="text-gray-400">
+                -- Select Package Type --
+              </option>
+              <option value="Honeymoon" className="text-black">
+                Honeymoon
+              </option>
+              <option value="Family" className="text-black">
+                Family
+              </option>
+              <option value="Friends" className="text-black">
+                Friends
+              </option>
+              <option value="Adventure" className="text-black">
+                Adventure
+              </option>
+              <option value="Custom" className="text-black">
+                Custom
+              </option>
+            </select>
+            <p className="text-red-500 text-sm mt-1">{errors.packageType?.message}</p>
+          </div>
           <div>
             <label>Price per Person</label>
             <input
@@ -191,7 +245,7 @@ export default function CreatePackage({ onClose }) {
                 <div className="relative w-full mb-4">
                   <input
                     type="number"
-                     min="1"
+                    min="1"
                     {...register(`places.${index}.duration`)}
                     placeholder="e.g., 2"
                     className="w-full p-2 pr-20 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"

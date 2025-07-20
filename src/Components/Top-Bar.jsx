@@ -230,10 +230,7 @@ export default function Topbar() {
             setShowSignup(true);
           }}
           onLoginSuccess={(name) => {
-            setShowLogin(false);
-            updateAuthStatus(true, name); // 👈 login globally
-          }}
-          onForgotPassword={() => {
+            updateAuthStatus(true, { name }); // 👈 login globally
             setShowLogin(false);
             setShowForgotPassword(true);
           }}
