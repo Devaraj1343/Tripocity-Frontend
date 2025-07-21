@@ -12,11 +12,10 @@ export const AuthProvider = ({ children }) => {
       try {
         const decoded = jwtDecode(token);
         setIsLoggedIn(true);
-        console.log('decoded',decoded);
+        // console.log('decoded',decoded);
         
         setUser(decoded); // fallback if name missing
       } catch {
-        console.log("Invalid token");
         localStorage.removeItem("authToken");
       }
     }
