@@ -65,6 +65,24 @@ export default function Topbar() {
     };
   }, []);
 
+    useEffect(() => {
+    // Get token from query string (if redirected from backend)
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+
+    if (token) {
+      localStorage.setItem("authToken", token);
+      window.history.replaceState({}, document.title, "/"); // Remove ?token= from URL
+    }
+
+    const savedToken = localStorage.getItem("authToken");
+    if (savedToken) {
+      toast.success("Logged in successfully");
+      // Decode JWT (optional: for showing user name/pic)
+     updateAuthStatus(true,{name:"user"}); // 👈 update auth status globally
+    }
+  }, []);
+
   return (
     <div className="sticky top-0 z-10 bg-white dark:bg-black ">
       <div className="hidden min1000:flex flex-wrap items-center justify-between p-4 sm:p-6 md:p-4 text-base sm:text-lg font-medium dark:text-text-dark text-text-light shadow-bottom-only">
@@ -145,7 +163,7 @@ export default function Topbar() {
               </button>
             </div>
           ) : (
-            <div>
+            <div> 
               <CircleUser
                 className="w-8 h-8 cursor-pointer hover:text-primary transition-colors duration-200"
                 onClick={() => setShowUsercard(!showUsercard)}

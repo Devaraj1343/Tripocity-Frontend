@@ -20,11 +20,14 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem("authToken");
       }
     }
+    else{
+      setIsLoggedIn(false);
+      setUser(null);
+    }
   });
 
   const updateAuthStatus = (loggedIn, userInfo = null) => {
     setIsLoggedIn(loggedIn);
-    setUserName(userInfo.name)
   };
 
   return (

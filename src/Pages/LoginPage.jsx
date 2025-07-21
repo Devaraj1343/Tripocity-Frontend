@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { useGoogleLogin } from '@react-oauth/google';
 
 export default function LoginPage({ onClose,onSwitch,onLoginSuccess,onForgotPassword }) {
 
@@ -10,7 +11,7 @@ export default function LoginPage({ onClose,onSwitch,onLoginSuccess,onForgotPass
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3100/api';
+  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -51,6 +52,15 @@ export default function LoginPage({ onClose,onSwitch,onLoginSuccess,onForgotPass
       setLoading(false);
     }
   };
+
+
+    const handleGoogleLogin = () => {
+    // Redirect to backend to start Google OAuth
+    window.location.href = "http://localhost:3000/api/auth/google";
+  };
+
+
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center   ">
       <div className="rounded-2xl shadow-2xl p-8 w-full max-w-md relative bg-white dark:bg-bg-dark dark:text-text-dark">
@@ -112,7 +122,8 @@ export default function LoginPage({ onClose,onSwitch,onLoginSuccess,onForgotPass
         {/* Social Login Buttons */}
         <div className="flex gap-4">
           {/* Google */}
-          <button className="flex items-center justify-center w-full border border-gray-300 rounded-md py-2  hover:bg-gray-50 transition dark:bg-bg-dark dark:text-text-dark">
+          <button className="flex items-center justify-center w-full border text-text-light border-gray-300 rounded-md py-2  hover:bg-gray-50 transition dark:bg-bg-dark dark:text-text-dark
+          "  onClick={handleGoogleLogin}>
             <img
               src="https://www.svgrepo.com/show/475656/google-color.svg"
               alt="Google"
@@ -122,7 +133,7 @@ export default function LoginPage({ onClose,onSwitch,onLoginSuccess,onForgotPass
           </button>
 
           {/* Facebook */}
-          <button className="flex items-center justify-center w-full border border-gray-300 rounded-md py-2 hover:bg-gray-50 hover:text transition dark:bg-bg-dark dark:text-text-dark">
+          <button className="flex items-center justify-center w-full border text-text-light border-gray-300 rounded-md py-2 hover:bg-gray-50 hover:text transition dark:bg-bg-dark dark:text-text-dark">
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"
               alt="Facebook"
