@@ -1,4 +1,4 @@
-import home from "../assets/home.jpg";
+import "../App.css";
 import home1 from "../assets/Home-1.jpg";
 import Footer from "../Components/Footer";
 import indiaPackage from "../assets/Tajmahal.jpg";
@@ -7,20 +7,11 @@ import honeyMoonPackage from "../assets/Couples-travel.jpg";
 import europePackage from "../assets/Europe.jpg";
 import groupPackage from "../assets/Group-Package.jpg";
 import TajmahalMobile from "../assets/Tajmahal-Mobile.jpg";
-import worldMap from "../assets/WorldMap.png";
-import { Phone } from "lucide-react";
-import { Mail } from "lucide-react";
 import { useState, useEffect } from "react";
-import ContactForm from "../Components/contactForm";
-import world from "../assets/World-1.jpg";
-import "../App.css";
 import SuggestionCards from "../Components/SuggestionCards";
-import CreatePackage from "../Components/CreatePackage";
-import EnquireNow from "../Components/EnquireNow";
 
 export default function Home() {
-  const [canCreaetePackage, setCanCreatePackage] = useState(false);
-  const [images, setImages] = useState([
+  const [images] = useState([
     { name: "India Packages", image: indiaPackage },
     { name: "International Packages", image: internationalPackage },
     { name: "Honeymoon Packages", image: honeyMoonPackage },
@@ -29,7 +20,7 @@ export default function Home() {
   ]);
 
   const tourismTexts = [
-    { text: "Discover the World’s Hidden Gems", animation: "animate-flyLeft" },
+    { text: "Discover the World's Hidden Gems", animation: "animate-flyLeft" },
     {
       text: "Adventure Awaits. Are You Ready?",
       animation: "animate-fadeScale",
@@ -50,7 +41,7 @@ export default function Home() {
     }, 5000); // Change every 3 seconds
 
     return () => clearInterval(interval);
-  }, []);
+  }, [tourismTexts.length]);
   return (
     <div className="flex flex-col gap-11">
       <div className="relative lg:h-[calc(100vh-80px)] sm:h-[60vh]">
@@ -68,7 +59,7 @@ export default function Home() {
       </div>
 
       <div className="">
-        <div className="my-8 text-2xl font-bold w-[90%] mx-auto dark:text-text-dark">
+        <div className="my-5 text-2xl font-bold w-[90%] mx-auto">
           Popular Packages
         </div>
         <div className="w-[90%] mx-auto columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
@@ -112,25 +103,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/*
-  <div>
-    <button
-      className="flex fixed bottom-0 right-0 m-5 bg-primary p-3 rounded-lg text-white font-semibold hover:bg-black"
-      onClick={() => setCanCreatePackage(!canCreaetePackage)}
-    >
-      Create New Package
-    </button>
-     Create new tour package by admin 
-    {canCreaetePackage && (
-      <CreatePackage setCanCreaetePackage={setCanCreatePackage} />
-    )}
-  </div>
-*/}
-
-      <div>
-        <SuggestionCards />
-      </div>
-
+      <SuggestionCards />
       <Footer />
     </div>
   );
