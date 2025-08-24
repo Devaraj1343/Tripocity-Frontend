@@ -9,7 +9,7 @@ import { IndiaCategories } from "../common/packageConstants/india";
 import Logo from "./logo";
 import Login from "../Pages/LoginPage";
 import Signup from "../Pages/SignUp";
-import { AlignJustify, CircleUser } from 'lucide-react';
+import { AlignJustify, CircleUser, PhoneCall } from "lucide-react";
 import Navcard from "./Navcard";
 
 // 👇 import AuthContext
@@ -65,7 +65,7 @@ export default function Topbar() {
     };
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     // Get token from query string (if redirected from backend)
     const params = new URLSearchParams(window.location.search);
     const token = params.get("token");
@@ -79,9 +79,9 @@ export default function Topbar() {
     if (savedToken) {
       toast.success("Logged in successfully");
       // Decode JWT (optional: for showing user name/pic)
-     updateAuthStatus(true,{name:"user"}); // 👈 update auth status globally
+      updateAuthStatus(true, { name: "user" });
     }
-  }, []);
+  });
 
   return (
     <div className="sticky top-0 z-10 bg-white dark:bg-black ">
@@ -146,8 +146,11 @@ export default function Topbar() {
           )}
         </div>
 
-        <div className="bg-[#9333ea] hover:bg-black text-white text-fluid px-2 py-1 rounded-sm transition-colors duration-200">
-          <h2>Call Us :123456789</h2>
+        <div className="min768:hidden text-fluid">
+          <h2 className="flex gap-2 items-center justify-center">
+            <PhoneCall className="size-5 right-2" />
+            Call Us : +91 8090706050
+          </h2>
         </div>
 
         <div className="flex items-center gap-4 sm:gap-6 md:gap-8">
@@ -163,7 +166,7 @@ export default function Topbar() {
               </button>
             </div>
           ) : (
-            <div> 
+            <div>
               <CircleUser
                 className="w-8 h-8 cursor-pointer hover:text-primary transition-colors duration-200"
                 onClick={() => setShowUsercard(!showUsercard)}
@@ -198,9 +201,8 @@ export default function Topbar() {
                   onClick={() => {
                     localStorage.removeItem("authToken");
                     setShowUsercard(false);
-                     toast.warning("Logged out successfully");
+                    toast.warning("Logged out successfully");
                     updateAuthStatus(false); // 👈 logout globally
-                   
                   }}
                 >
                   Logout
@@ -229,10 +231,9 @@ export default function Topbar() {
                 userName={user?.name || "Guest"}
                 logOut={() => {
                   localStorage.removeItem("authToken");
-                   setShowNavcard(false);
-                   toast.warning("Logged out successfully");
+                  setShowNavcard(false);
+                  toast.warning("Logged out successfully");
                   updateAuthStatus(false); // 👈 logout globally
-                  
                 }}
               />
             )}
@@ -248,7 +249,7 @@ export default function Topbar() {
             setShowSignup(true);
           }}
           onLoginSuccess={(name) => {
-            updateAuthStatus(true, { name }); // 👈 login globally
+            updateAuthStatus(true, { name });
             setShowLogin(false);
             setShowForgotPassword(true);
           }}

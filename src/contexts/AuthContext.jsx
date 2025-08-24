@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext();
 
@@ -12,20 +12,17 @@ export const AuthProvider = ({ children }) => {
       try {
         const decoded = jwtDecode(token);
         setIsLoggedIn(true);
-        // console.log('decoded',decoded);
-        
         setUser(decoded); // fallback if name missing
       } catch {
         localStorage.removeItem("authToken");
       }
-    }
-    else{
+    } else {
       setIsLoggedIn(false);
       setUser(null);
     }
-  });
+  }, []);
 
-  const updateAuthStatus = (loggedIn, userInfo = null) => {
+  const updateAuthStatus = (loggedIn, _userInfo = null) => {
     setIsLoggedIn(loggedIn);
   };
 

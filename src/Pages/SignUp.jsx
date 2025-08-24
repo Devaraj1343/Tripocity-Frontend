@@ -1,31 +1,28 @@
-import React from 'react';
-import { useState } from 'react';
-import { toast } from 'react-toastify';
+import { useState } from "react";
+import { toast } from "react-toastify";
 
-export default function SignupPage({ onClose,onSwitch }) {
-
-
-   const [email, setEmail] = useState('');
-   const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
+export default function SignupPage({ onClose, onSwitch }) {
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3100/api';
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3100/api";
 
   const handleSignUp = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
 
     try {
       const response = await fetch(`${apiUrl}/users/register`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password,name }),
+        body: JSON.stringify({ email, password, name }),
       });
 
       const data = await response.json();
@@ -34,20 +31,19 @@ export default function SignupPage({ onClose,onSwitch }) {
         // Login successful
         // console.log('Signup success:', data);
         setSuccess(data.message);
-        toast.success('Signup successful');
+        toast.success("Signup successful");
         onClose(); // Close the signup modal on success
         // Optionally store token in localStorage
-       // localStorage.setItem('token', data.data.token);
+        // localStorage.setItem('token', data.data.token);
       } else {
         // Login failed
-        console.error('Signup failed:', data.message);
-        toast.error(data.message || 'Signup failed');
-        setError(data.message || 'Signup failed');
+        console.error("Signup failed:", data.message);
+        toast.error(data.message || "Signup failed");
+        setError(data.message || "Signup failed");
       }
-
     } catch (err) {
-      console.error('Error during Signup:', err);
-      setError('Something went wrong. Please try again later.');
+      console.error("Error during Signup:", err);
+      setError("Something went wrong. Please try again later.");
     } finally {
       setLoading(false);
     }

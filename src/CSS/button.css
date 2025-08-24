@@ -68,7 +68,7 @@
   --after-blur: 10;
   --after-opacity: 1;
   --after-pos-y: 10;
-  
+
   --before-opacity: 0.3;
 
   /* positions */
@@ -109,8 +109,6 @@
   outline-offset: -1px;
 }
 
-
-
 main {
   display: grid;
   place-items: center;
@@ -120,12 +118,9 @@ main {
     background: transparent;
     border-width: 0;
     transform: scale(var(--btn-scale));
-    transition: 
-        --bg-position 3s ease, 
-        --after-blur 0.3s ease,
-        --before-opacity 0.3s ease,
-        --btn-offset 0.3s ease,
-        --btn-scale 0.2s cubic-bezier(.76,-0.25,.51,1.13);
+    transition: --bg-position 3s ease, --after-blur 0.3s ease,
+      --before-opacity 0.3s ease, --btn-offset 0.3s ease,
+      --btn-scale 0.2s cubic-bezier(0.76, -0.25, 0.51, 1.13);
 
     > div {
       display: block;
@@ -136,7 +131,7 @@ main {
       border-radius: 8px;
       font-size: 18px;
       position: relative;
-      
+
       cursor: pointer;
 
       &:not(:hover) {
@@ -159,7 +154,6 @@ main {
             var(--color-white)
           )
           no-repeat calc(var(--bg-position) * 1%) 0% / 900%;
-        -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         letter-spacing: 0.15ch;
         font-weight: 600;
@@ -214,25 +208,25 @@ main {
       --btn-scale: 1.05;
       --bg-position: 0;
       --after-bg: linear-gradient(
-          to right,
-          var(--color-white),
-          var(--color-white),
-          var(--color-cyan),
-          var(--color-blue),
-          var(--color-purple),
-          var(--color-pink),
-          var(--color-red),
-          var(--color-yellow),
-          var(--color-lime),
-          var(--color-white),
-          var(--color-white)
-        );
-        --after-blur: 30;
-        --after-opacity: 0.3;
-        --after-pos-y: 0;
-        --before-opacity: 1;      
-        --btn-offset: 5;
-      
+        to right,
+        var(--color-white),
+        var(--color-white),
+        var(--color-cyan),
+        var(--color-blue),
+        var(--color-purple),
+        var(--color-pink),
+        var(--color-red),
+        var(--color-yellow),
+        var(--color-lime),
+        var(--color-white),
+        var(--color-white)
+      );
+      --after-blur: 30;
+      --after-opacity: 0.3;
+      --after-pos-y: 0;
+      --before-opacity: 1;
+      --btn-offset: 5;
+
       &:active {
         --btn-scale: 0.98;
         --after-blur: 15;
